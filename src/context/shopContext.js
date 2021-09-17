@@ -11,7 +11,7 @@ const client = Client.buildClient({
 class ShopProvider extends Component {
   state = {
     product: {},
-    products: {},
+    products: [],
     checkout: {},
     isCartOpen: false,
     isMenuOpen: false,

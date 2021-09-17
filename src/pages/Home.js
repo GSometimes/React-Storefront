@@ -12,7 +12,6 @@ const Home = () => {
 
   return (
     <div>
-        console.log(products)
       {products.map((product) => (
         <h1>{product.title}</h1>
       ))}
