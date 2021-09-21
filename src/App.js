@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
 import NavBar from "./component/NavBar";
 import Cart from "./component/Cart";
+import NavMenu from "./component/NavMenu";
+import Footer from "./component/Footer";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
       <Router>
         <NavBar />
         <Cart />
+        <NavMenu />
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -18,7 +21,7 @@ function App() {
             <ProductPage />
           </Route>
         </Switch>
-        <p>Footer</p>
+        <Footer />
       </Router>
     </div>
   );

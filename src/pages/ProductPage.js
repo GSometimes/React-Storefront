@@ -1,36 +1,61 @@
-import React, { useEffect, useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { Box, Grid, Image, Text, Button, Heading, Flex, Center } from '@chakra-ui/react'
-import { ShopContext } from '../context/shopContext'
-
+import React, { useEffect, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
+import {
+  Box,
+  Grid,
+  Image,
+  Text,
+  Button,
+  Heading,
+  Flex,
+  Center,
+} from "@chakra-ui/react";
+import { ShopContext } from "../context/shopContext";
 
 const ProductPage = () => {
+  const { handle } = useParams();
 
-    const { handle } = useParams();
+  const { fetchProductWithHandle, addItemToCheckout, product } =
+    useContext(ShopContext);
 
-    const { fetchProductWithHandle, addItemToCheckout, product } = useContext(ShopContext);
+  useEffect(() => {
+    fetchProductWithHandle(handle);
+  }, [fetchProductWithHandle, handle]);
 
-    useEffect(() => {
-        fetchProductWithHandle(handle)
-    }, [fetchProductWithHandle, handle])
+  if (!product.title) return <div>Loading...</div>;
 
-    if(!product.title) return <div>Loading...</div>
+  return (
+    <Box p="2rem">
+      <Grid templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]} m="auto">
+        <Flex justifyContent="center" alignItems="center">
+          <Image src={product.images[0].src} />
+        </Flex>
+        <Flex
+          flexDir="column"
+          alignItems="center"
+          justifyContent="center"
+          px="2rem"
+        >
+          <Heading pb="2rem">{product.title}</Heading>
+          <Text fontWeight="bold" pb="2rem">
+            {product.variants[0].price}
+          </Text>
+          <Text pb="2rem" fontSize="sm" color="gray.600">
+            {product.description}
+          </Text>
+          <Button
+            onClick={() => addItemToCheckout(product.variants[0].id, 1)}
+            _hover={{ opacity: "70%" }}
+            w="10rem"
+            backgroundColor="#FF38DB"
+            color="white"
+          >
+            Add To Cart
+          </Button>
+        </Flex>
+      </Grid>
+    </Box>
+  );
+};
 
-    return (
-        <Box>
-            <Grid templateColumns="repeat(2, 1fr)">
-                <Image src={product.images[0].src} />
-                <Box>
-                    <Heading>{product.title}</Heading>
-                    <Text>{product.variants[0].price}</Text>
-                    <Text>{product.description}</Text>
-                    <Button
-                        onClick={() => addItemToCheckout(product.variants[0].id, 1)}
-                    >Add To Cart</Button>
-                </Box>
-            </Grid>
-        </Box>
-    )
-}
-
-export default ProductPage
+export default ProductPage;

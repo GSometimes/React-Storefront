@@ -19,15 +19,15 @@ class ShopProvider extends Component {
 
   componentDidMount() {
     if (localStorage.checkout_id) {
-      this.fetchCheckout(localStorage.checkout_id)
+      this.fetchCheckout(localStorage.checkout_id);
     } else {
-      this.createCheckout()
+      this.createCheckout();
     }
   }
 
   createCheckout = async () => {
     const checkout = await client.checkout.create();
-    localStorage.setItem("checkout_id", checkout.id)
+    localStorage.setItem("checkout_id", checkout.id);
     this.setState({ checkout: checkout });
   };
 
@@ -84,9 +84,13 @@ class ShopProvider extends Component {
     this.setState({ isCartOpen: true });
   };
 
-  closeMenu = () => {};
+  closeMenu = () => {
+    this.setState({ isMenuOpen: false });
+  };
 
-  openMenu = () => {};
+  openMenu = () => {
+    this.setState({ isMenuOpen: true });
+  };
 
   render() {
     return (
