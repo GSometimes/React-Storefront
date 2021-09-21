@@ -19,27 +19,52 @@ class ShopProvider extends Component {
 
   componentDidMount() {
     if (localStorage.checkout_id) {
-      this.fetchCheckout(localStorage.checkout_id);
+      this.fetchCheckout(localStorage.checkout_id)
     } else {
-      this.createCheckout();
+      this.createCheckout()
     }
   }
 
   createCheckout = async () => {
     const checkout = await client.checkout.create();
-    localStorage.setItem("checkout-id", checkout.id);
+    localStorage.setItem("checkout_id", checkout.id)
     this.setState({ checkout: checkout });
   };
 
-  fetchCheckout = (checkoutId) => {
-    client.checkout.fetch(checkoutId).then((checkout) => {
-      this.setState({ checkout: checkout });
-    });
+  fetchCheckout = async (checkoutId) => {
+    client.checkout
+      .fetch(checkoutId)
+      .then((checkout) => {
+        this.setState({ checkout: checkout });
+      })
+      .catch((error) => console.log(error));
   };
 
-  addItemToCheckout = async () => {};
+  addItemToCheckout = async (variantId, quantity) => {
+    const lineItemsToAdd = [
+      {
+        variantId,
+        quantity: parseInt(quantity, 10),
+      },
+    ];
 
-  removeLineItem = async (lineItemIdsToRemove) => {};
+    const checkout = await client.checkout.addLineItems(
+      this.state.checkout.id,
+      lineItemsToAdd
+    );
+    this.setState({ checkout: checkout });
+
+    this.openCart();
+  };
+
+  removeLineItem = async (lineItemIdsToRemove) => {
+    const checkout = await client.checkout.removeLineItems(
+      this.state.checkout.id,
+      lineItemIdsToRemove
+    );
+
+    this.setState({ checkout: checkout });
+  };
 
   fetchAllProducts = async () => {
     const products = await client.product.fetchAll();
@@ -51,9 +76,13 @@ class ShopProvider extends Component {
     this.setState({ product: product });
   };
 
-  closeCart = () => { this.setState({isCartOpen: false})};
+  closeCart = () => {
+    this.setState({ isCartOpen: false });
+  };
 
-  openCart = () => { this.setState({isCartOpen: true}) };
+  openCart = () => {
+    this.setState({ isCartOpen: true });
+  };
 
   closeMenu = () => {};
 
