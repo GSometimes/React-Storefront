@@ -25,7 +25,7 @@ const Home = () => {
             <Box _hover={{ opacity: "80%" }} textAlign="center" position="relative">
               <Image src={product.images[0].src} />
               <Text position="absolute" bottom="15%" w="100%" fontWeight="bold">{product.title}</Text>
-              <Text position="absolute" bottom="5%" w="100%" color="gray.600">${product.variants[0].price}</Text>
+              <Text position="absolute" bottom="2.5%" w="100%" color="gray.600">${product.variants[0].price}</Text>
             </Box>
           </Link>
         ))}
