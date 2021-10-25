@@ -32,9 +32,9 @@ const Cart = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Your Shopping Cart</DrawerHeader>
 
           <DrawerBody>
+          <DrawerHeader>Your Shopping Cart</DrawerHeader>
             {checkout.lineItems?.length ? (
               checkout.lineItems.map((item) => (
                 <Grid templateColumns="repeat(4, 1fr)" gap={1} pt={1} pb={1} key={item.id}>

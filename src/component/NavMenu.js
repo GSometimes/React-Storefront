@@ -27,8 +27,8 @@ const NavMenu = () => {
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Menu</DrawerHeader>
           <DrawerBody>
+          <DrawerHeader>Menu</DrawerHeader>
             <VStack p="2rem">
               <Link to="/">About Us</Link>
               <Link to="/">Learn More</Link>
